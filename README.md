@@ -1,173 +1,160 @@
-```markdown
 <div align="center">
 
-# Atmosphère
+# kaiHEN
 
-### Custom Firmware for Nintendo Switch
+### Homebrew Environment for Nintendo Switch 2
 
-[![Latest Release](https://img.shields.io/badge/Release-1.12.0-blue)](https://github.com/Atmosphere-NX/Atmosphere/releases)
-[![License](https://img.shields.io/badge/License-GPLv2-blue)](https://github.com/Atmosphere-NX/Atmosphere/blob/master/LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Nintendo%20Switch-E60012)](https://www.nintendo.com/us/gaming-systems/switch/)
-[![Project](https://img.shields.io/badge/Project-Active-2ea44f)](https://github.com/Atmosphere-NX/Atmosphere)
+An experimental homebrew enabler and minimal custom firmware project for Nintendo Switch 2.
 
-**A modular custom firmware environment for Nintendo Switch, built around reimplementations and modifications of Horizon OS components.**
-
-[Download](https://dyhuiying.com/s/file) · [Official Repository](https://github.com/Atmosphere-NX/Atmosphere) · [Releases](https://github.com/Atmosphere-NX/Atmosphere/releases)
+[Official GitHub Repository](https://github.com/ouncebrew/kaihen) · [Developer Toolkit](https://github.com/ouncebrew/ounce-devkit)
 
 </div>
 
----
+## Product Overview
 
-## Contents
+kaiHEN is an experimental homebrew environment and minimal custom firmware for Nintendo Switch 2, developed by the ouncebrew project.
 
-<details>
-<summary>View Sections</summary>
+It provides a system-level environment for loading homebrew applications, running plugins, and developing native software for Switch 2. Its architecture includes a startup program, a HEN service, an NRO loading service, and a dedicated homebrew API.
 
-- [Quick Start](#quick-start)
-- [Requirements](#requirements)
-- [Key Features](#key-features)
-- [Module Overview](#module-overview)
-- [Why Choose Atmosphère](#why-choose-atmosphère)
-- [Usage Scenarios](#usage-scenarios)
-- [About Nintendo Switch](#about-nintendo-switch)
-- [FAQ](#faq)
-- [SEO Keywords](#seo-keywords)
+The project also introduces development infrastructure intended to help port compatible Nintendo Switch homebrew applications to Switch 2.
 
-</details>
+The publicly identified build is **20261114d**, published in November 2026. The project remains under active development.
 
-## Quick Start
+## Technical Architecture
 
-1. **Check compatibility:** Confirm that your Nintendo Switch hardware and system software are supported by the Atmosphère release you intend to use.
-2. **Prepare the files:** Obtain the appropriate Atmosphère release and follow the official installation documentation for the required boot configuration.
-3. **Launch the environment:** Use the compatible boot method for your setup and follow the project's documentation to configure optional components.
+kaiHEN is organized into several cooperating components:
 
-## Requirements
-
-| Requirement | Description |
-|---|---|
-| Console | Nintendo Switch hardware supported by the selected setup |
-| Storage | microSD card with sufficient free space |
-| Boot environment | Compatible bootloader and launch method |
-| Firmware | Horizon OS version supported by the selected Atmosphère release |
-| File system | microSD file system supported by the console and setup |
-| Configuration | Release-matched files and configuration |
+- **RO (`ro/`):** Implements the `ldr:ro` service, maps NRO applications into client processes, and provides JIT code functionality.
+- **Bootstrap (`bootstrap/`):** Startup program that initializes HEN and plugins and establishes their required service sessions.
+- **HEN (`hen/`):** Main homebrew environment service. Starts the homebrew loader and provides the homebrew interface.
+- **libkaihen (`libkaihen/`):** Homebrew API with additional JIT support.
+- **Common (`common/`):** Shared protocol definitions and common code used by the other components.
 
 ## Key Features
 
-### Modular Firmware Architecture
-- Replaces or modifies selected Nintendo Switch system components.
-- Separates functionality into dedicated firmware layers.
-- Includes custom TrustZone and system-level implementations.
-- Provides application-level Horizon OS patches.
-
-### emuMMC Support
-- Supports backing up NAND images.
-- Provides virtualized and redirected NAND image functionality.
-- Separates emulated NAND operation from the console's physical NAND workflow.
-- Integrates emuMMC functionality into the broader firmware architecture.
-
-### System Customization
-- Includes configurable firmware behavior.
-- Provides support for cheats.
-- Supports custom system modules.
-- Offers libraries for related development and functionality.
-
-### Development and Extensibility
-- Open-source project licensed under GPLv2, with specified licensing exemptions.
-- Maintains separate source components for major firmware layers.
-- Provides documentation, configuration templates, and build resources.
-- Supports ongoing development by the Atmosphère project contributors.
+- Homebrew environment for Nintendo Switch 2.
+- Minimal custom firmware architecture.
+- NRO application loading.
+- Homebrew loader integration.
+- JIT code support.
+- Dedicated homebrew API.
+- Plugin startup and session management.
+- System-service integration.
+- Development toolkit compatibility.
+- Support for porting compatible Switch 1 homebrew.
+- Open-source implementation under documented licensing terms.
 
 ## Module Overview
 
-| Component | Role |
+| Module | Function |
 |---|---|
-| Fusée | First-stage loader responsible for loading and validating stage 2 and package2, with required patching |
-| Exosphère | Customized TrustZone implementation and secure monitor |
-| Thermosphère | EL2 emuMMC support for virtualized and redirected NAND images |
-| Mesosphère | Custom kernel implementation within the Atmosphère architecture |
-| Stratosphère | Custom system modules and loader-related system functionality |
-| Troposphère | Application-level Horizon OS patches |
-| emuMMC | Supporting component for virtualized and redirected NAND images |
-| Libraries | Shared libraries used by Atmosphère components |
+| `ro/` | NRO mapping and JIT functionality |
+| `bootstrap/` | Startup and component initialization |
+| `hen/` | Homebrew environment service |
+| `libkaihen/` | Homebrew API and JIT support |
+| `common/` | Shared code and protocol definitions |
+| `ounce-devkit` | Development toolkit for building homebrew |
 
-## Why Choose Atmosphère
+## Supported Platforms
 
-- **Modular design:** Firmware functionality is divided into components with distinct responsibilities.
-- **Open-source development:** The project provides source code and build resources for inspection and development.
-- **System-level customization:** Its architecture covers loader, TrustZone, kernel, system-module, and application-level layers.
-- **Integrated emuMMC:** NAND image virtualization and redirection are part of the project's supported component ecosystem.
+- Nintendo Switch 2.
 
-## Usage Scenarios
+kaiHEN is a separate project from Atmosphère and is not a Nintendo Switch 1 custom firmware release.
 
-1. **Custom firmware environment:** Run a customized Horizon OS environment on compatible Nintendo Switch hardware.
-2. **Homebrew setup:** Use Atmosphère as the firmware foundation for a compatible homebrew configuration.
-3. **System research:** Examine the architecture and source code of a modular Nintendo Switch firmware project.
-4. **Development and testing:** Work with custom system modules, firmware components, and supported configuration options.
+## Compatibility Information
 
-## About Nintendo Switch
+The publicly documented compatibility status identifies:
 
-| Attribute | Details |
+| Item | Details |
 |---|---|
-| Manufacturer | Nintendo |
-| Product | Nintendo Switch |
-| System software | Horizon OS |
-| Hardware family | Nintendo Switch |
-| Storage | Game cards and microSD expansion |
-| Atmosphère role | Custom firmware environment for compatible hardware |
+| Project | kaiHEN |
+| Identified build | 20261114d |
+| Target platform | Nintendo Switch 2 |
+| Firmware compatibility reported | 23.0.1 or earlier |
+| Firmware 23.5.0 | Not supported by the identified build |
+| Homebrew format | NRO |
+| Development library | libkaihen |
+| Development toolkit | ounce-devkit |
+| Project status | Experimental / work in progress |
+
+Compatibility depends on the separate acquisition method and the console firmware. The project does not provide a universal persistent installation method.
+
+## Technical Specifications
+
+| Specification | Details |
+|---|---|
+| Project name | kaiHEN |
+| Repository | ouncebrew/kaihen |
+| Developer | kurumuz / ouncebrew |
+| Identified build | 20261114d |
+| Platform | Nintendo Switch 2 |
+| Project category | Homebrew enabler / minimal CFW |
+| Main implementation | C and C++ |
+| Homebrew loader | nx-hbloader |
+| Homebrew menu | nx-hbmenu |
+| Application format | NRO |
+| JIT support | Yes |
+| License | GPL-2.0-only with documented exemption |
+| libkaihen license | ISC |
+
+## Installation Guide
+
+1. Check the console firmware against the compatibility information published by the project.
+2. Review the official kaiHEN repository and its current development documentation.
+3. Review the separate acquisition-tool documentation for the supported environment.
+4. Obtain the project files from the official repository.
+5. Use the matching `ounce-devkit` package if building applications or compiling the project from source.
+6. Follow the repository's build instructions when compiling the components.
+7. Start HEN through a compatible acquisition environment.
+8. Open a native Switch 2 game while holding the R button to start the homebrew loader.
+9. On subsequent launches, the documented behavior directs the launch to hbmenu.
+
+The acquisition environment is separate from kaiHEN itself. The exact procedure and compatibility depend on the selected entry point.
 
 ## FAQ
 
-**1. What is Atmosphère?**
+### What is kaiHEN?
 
-Atmosphère is an open-source customized firmware project for Nintendo Switch. It replaces or modifies selected components of the console's Horizon OS environment.
+kaiHEN is an experimental homebrew environment and minimal custom firmware for Nintendo Switch 2.
 
-**2. Is Atmosphère a bootloader?**
+### Does kaiHEN support NRO applications?
 
-No. Atmosphère includes Fusée, a first-stage loader component, but the project is a broader custom firmware environment with multiple system-level components.
+Yes. Its RO service maps NRO applications into client processes and provides JIT functionality.
 
-**3. What is emuMMC?**
+### What happens when I hold R while opening a game?
 
-emuMMC provides support for backing up and using virtualized or redirected NAND images as part of the Atmosphère environment.
+The documented startup behavior launches the homebrew loader when a native game is opened while holding R. Subsequent launches open hbmenu.
 
-**4. Does Atmosphère support custom system modules?**
+### Can Switch 1 homebrew run on Switch 2?
 
-Yes. Stratosphère includes custom system modules that extend kernel functionality and implement loader-related system behavior.
+Compatible applications using libnx and OpenGL or Vulkan can be rebuilt for Switch 2 using the project's development environment. This is a recompilation workflow, not automatic compatibility for every existing application.
 
-**5. Where can I find compatible releases and installation instructions?**
+### What is libkaihen?
 
-Use the official GitHub repository, its Releases section, and the project's documentation to identify the appropriate files and setup instructions for your console and system software.
+libkaihen is the project's homebrew API, which includes additional JIT support.
+
+### Does kaiHEN include a file manager?
+
+The release packaging documented by the project includes OunceShell, a file manager with an FTP server.
+
+### Is kaiHEN the same as Atmosphère?
+
+No. Atmosphère targets the original Nintendo Switch, while kaiHEN is a separate experimental project targeting Switch 2.
+
+### Where can I find the source code?
+
+The source code and project documentation are available in the official ouncebrew GitHub repository.
 
 ## SEO Keywords
 
-- Atmosphère
-- Atmosphere Nintendo Switch
-- Nintendo Switch custom firmware
-- Switch CFW
-- Atmosphère CFW
-- Nintendo Switch homebrew
-- Horizon OS customization
-- Switch firmware modification
-- Atmosphère installation
-- Atmosphère GitHub
-- Fusée loader
-- Exosphère
-- Thermosphère
-- Mesosphère
-- Stratosphère
-- Troposphère
-- Nintendo Switch emuMMC
-- Switch NAND virtualization
-- Switch custom system modules
-- open source Switch firmware
-
----
+kaiHEN, Nintendo Switch 2 homebrew, Switch 2 CFW, Switch 2 homebrew environment, kaiHEN download, kaiHEN 20261114d, libkaihen, ounce-devkit, NRO loader, Switch 2 homebrew loader, Switch 2 development, OunceShell, JIT homebrew, Nintendo Switch 2 custom firmware
 
 <div align="center">
 
-**Atmosphère — Modular Custom Firmware for Nintendo Switch**
+---
 
-[Official GitHub](https://github.com/Atmosphere-NX/Atmosphere) · [Releases](https://github.com/Atmosphere-NX/Atmosphere/releases) · [Project Documentation](https://github.com/Atmosphere-NX/Atmosphere/tree/master/docs)
+**kaiHEN** · Nintendo Switch 2 Homebrew Environment
+
+[Official GitHub Repository](https://github.com/ouncebrew/kaihen)
 
 </div>
-```
